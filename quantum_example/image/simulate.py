@@ -9,9 +9,10 @@ from qiskit.providers.fake_provider import FakeProvider
 # Read the array task ID from the command line.
 array_task_id = int(argv[1])
 # The args file will be copied into the image (see %files section in image.def).
-args_file = "/root/image/args.csv"
-# The results folder will be shared with the container (see job.bash).
-results_file = f"/root/results/{array_task_id}.json"
+args_file = "/image/args.csv"
+# The results folder is inside the working directory for the job (see job.bash).
+# By default, Apptainer automatically binds the working directory.
+results_file = f"results/{array_task_id}.json"
 
 # Look up the line in args.csv corresponding to the array task ID to get the
 # arguments for this particular array task.

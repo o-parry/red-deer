@@ -2,15 +2,18 @@ Bootstrap: docker
 From: ubuntu:lunar
 Stage: build
 
+%setup
+    mkdir -p ./results
+
 %files
-    /data/YOUR_USERNAME_HERE/quantum_example/image /root/image
+    ./image /image
 
 %post
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y python3-full python3-pip virtualenv && \
-    virtualenv /root/venv && \
-    /root/venv/bin/pip install --no-deps -r /root/image/requirements.txt
+    virtualenv /image/venv && \
+    /image/venv/bin/pip install --no-deps -r /image/requirements.txt
 
 %runscript
-    /root/venv/bin/python /root/image/simulate.py $1
+    /image/venv/bin/python /image/simulate.py $1
